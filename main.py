@@ -16,15 +16,24 @@ def check_string_in_files(string, directory):
                 # Check if the string is present in the file
                 if re.search(pattern, contents):
                     return file_name[:-4]
+    words_file = open("./main_dictionary/words.txt", "r")
+    words_list = words_file.read()
+    word_pattern = re.compile(
+        r'\b{}\b'.format(string), re.IGNORECASE)
+    if re.search(word_pattern, words_list):
+        return 'words'
     return '-'
 
-sentence = "test is really an important question that i have?"
+sentence_file = open("./test_files/test_sentence.txt", "r")
+sentence = sentence_file.read()
 words = sentence.split()
 
 def initial_load():
-    sentence = ''
+    type_of_words_output = ''
     for word in words:
-        sentence += check_string_in_files(word, "smart_dictionary") + " "
-    print(sentence)
+        type_of_words_output += check_string_in_files(
+            word, "smart_dictionary") + " "
+    print(type_of_words_output)
+
 initial_load()
 exit()
