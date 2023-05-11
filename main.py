@@ -1,6 +1,7 @@
 from sys import exit
 import re
 import os
+import random
 brain_doubts = ''
 doubt_words = []
 
@@ -85,13 +86,18 @@ def initial_load(sentence):
 
 while True:
     try:
-        input_data = input(
-            "\nHI. This is fluid brain. what can I do for you \n?")
-        response = initial_load(input_data)
-        if len(doubt_words) > 0:
-            print(brain_doubts)
-            print(doubt_words)
-        print("This is the analysed output.\n")
-        print(response)
+        with open("./sentence_dictionary/coversation_starter.txt", "r") as file:
+                sentences = file.readlines()
+                sentences = [s.strip() for s in sentences]
+                sentences = [s for s in sentences if s]
+                random_sentence = random.choice(sentences)
+                input_data = input(
+                   random_sentence)
+                response = initial_load(input_data)
+                if len(doubt_words) > 0:
+                    print(brain_doubts)
+                    print(doubt_words)
+                print("This is the analysed output.\n")
+                print(response)
     except ValueError:
         print("Invalid input, please enter a number.")
